@@ -1,16 +1,15 @@
 import React from "react";
 import axios from "axios";
+import { Routes, Route } from "react-router-dom";
 
 import Header from "./components/Header";
-import Categories from "./components/Categories";
-import Sort from "./components/Sort";
-import Card from "./components/Card";
+import Home from "./pages/Home";
+import Cart from "./pages/Cart";
+import NotFound from "./pages/NotFound";
 
 import AppContext from "./context";
 
 import "./scss/app.scss";
-
-const asd = [123, 1231,23, 21]
 
 function App() {
   const [sortBy, setSortBy] = React.useState("popularity");
@@ -20,7 +19,7 @@ function App() {
   React.useEffect(() => {
     async function fetchData() {
       try {
-        const [ responseItems, data ] = await Promise.all([
+        const [responseItems, data] = await Promise.all([
           axios.get("https://63c418a0a908563575316ae6.mockapi.io/items"),
           require("./pizza_DB.json"),
         ]);
@@ -40,20 +39,15 @@ function App() {
     <AppContext.Provider value={{ setSortBy, sortBy }}>
       <div className="wrapper">
         <Header />
-        <div className="content">
-          <div className="container">
-            <div className="content__top">
-              <Categories />
-              <Sort />
-            </div>
-            <h2 className="content__title">All pizzas</h2>
-            <div className="content__items">
-              {(isLoading ? [...Array(12)] : items).map((item, index) => {
-                return <Card key={index} {...item} isLoading={isLoading} />;
-              })}
-            </div>
-          </div>
-        </div>
+        <Routes>
+          <Route
+            exact
+            path="/"
+            element={<Home items={items} isLoading={isLoading} />}
+          />
+          <Route exact path="/cart" element={<Cart />} />
+          <Route exact path="*" element={<NotFound />} />
+        </Routes>
       </div>
     </AppContext.Provider>
   );
