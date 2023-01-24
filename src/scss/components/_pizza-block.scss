@@ -4,6 +4,7 @@
   width: 280px;
   text-align: center;
   margin-bottom: 65px;
+  padding: 10px;
 
   &:not(:nth-of-type(4n)) {
     margin-right: 35px;
@@ -66,3 +67,4 @@
     letter-spacing: 0.015em;
   }
 }
+

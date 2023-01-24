@@ -1,0 +1,72 @@
+@keyframes skeleton-loading {
+  0% {
+    background-color: hsl(0, 0%, 84%);
+  }
+  100% {
+    background-color: hsl(200, 20%, 95%);
+  }
+}
+
+.pizza-skeleton {
+  width: 280px;
+  text-align: center;
+  margin-bottom: 65px;
+  padding: 10px;
+  height: 400px;
+
+  &:not(:nth-of-type(4n)) {
+    margin-right: 35px;
+  }
+
+  &__h4 {
+    margin: 10px 0;
+    width: 100%;
+    height: 40px;
+    animation: skeleton-loading 1s linear infinite alternate;
+  }
+
+  &__image {
+    width: 260px;
+    height: 260px;
+    animation: skeleton-loading 1s linear infinite alternate;
+  }
+
+  &__title {
+    margin: 10px 0;
+    width: 100%;
+    height: 20px;
+    animation: skeleton-loading 1s linear infinite alternate;
+  }
+
+  &__selector {
+    display: flex;
+    border-radius: 10px;
+    flex-direction: column;
+    padding: 6px;
+    width: 100%;
+    height: 70px;
+    animation: skeleton-loading 1s linear infinite alternate;
+  }
+
+  &__bottom {
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+
+  &__price {
+    height: 30px;
+    width: 120px;
+    animation: skeleton-loading 1s linear infinite alternate;
+  }
+
+  &__button {
+    border-radius: 20px;
+    height: 45px;
+    width: 90px;
+    animation: skeleton-loading 1s linear infinite alternate;
+  }
+}
