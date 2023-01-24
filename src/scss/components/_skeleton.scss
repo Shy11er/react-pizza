@@ -12,11 +12,6 @@
   text-align: center;
   margin-bottom: 65px;
   padding: 10px;
-  height: 400px;
-
-  &:not(:nth-of-type(4n)) {
-    margin-right: 35px;
-  }
 
   &__h4 {
     margin: 10px 0;
@@ -32,9 +27,8 @@
   }
 
   &__title {
-    margin: 10px 0;
-    width: 100%;
-    height: 20px;
+    height: 50px;
+    margin-bottom: 20px;
     animation: skeleton-loading 1s linear infinite alternate;
   }
 
@@ -44,7 +38,7 @@
     flex-direction: column;
     padding: 6px;
     width: 100%;
-    height: 70px;
+    height: 80px;
     animation: skeleton-loading 1s linear infinite alternate;
   }
 
@@ -58,7 +52,7 @@
 
 
   &__price {
-    height: 30px;
+    height: 40px;
     width: 120px;
     animation: skeleton-loading 1s linear infinite alternate;
   }
@@ -66,7 +60,7 @@
   &__button {
     border-radius: 20px;
     height: 45px;
-    width: 90px;
+    width: 100px;
     animation: skeleton-loading 1s linear infinite alternate;
   }
 }

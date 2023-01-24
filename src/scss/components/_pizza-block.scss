@@ -6,10 +6,6 @@
   margin-bottom: 65px;
   padding: 10px;
 
-  &:not(:nth-of-type(4n)) {
-    margin-right: 35px;
-  }
-
   &__image {
     width: 260px;
   }
@@ -17,6 +13,7 @@
   &__title {
     font-size: 20px;
     font-weight: 900;
+    height: 50px;
     letter-spacing: 1%;
     margin-bottom: 20px;
   }

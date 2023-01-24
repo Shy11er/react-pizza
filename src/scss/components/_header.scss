@@ -8,6 +8,10 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    
+    a {
+      padding-right: 20px;
+    }
   }
 
   &__logo {
@@ -24,10 +28,26 @@
       letter-spacing: 1%;
       text-transform: uppercase;
       font-weight: 800;
+
+      @media (max-width: 560px) {
+        font-size: 20px;
+      }
+
+      @media (max-width: 420px) {
+        font-size: 16px;
+      }
     }
 
     p {
       color: #7b7b7b;
+      
+      @media (max-width: 560px) {
+        font-size: 14px;
+      }
+
+      @media (max-width: 420px) {
+        font-size: 12px;
+      }
     }
   }
 }

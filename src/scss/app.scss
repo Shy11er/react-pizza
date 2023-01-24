@@ -1,7 +1,7 @@
-@import './variables.scss';
-@import './libs/normalize.scss';
+@import "./variables.scss";
+@import "./libs/normalize.scss";
 
-@import './components/all.scss';
+@import "./components/all.scss";
 
 body {
   background-color: $background;
@@ -24,15 +24,37 @@ body {
   }
 
   &__items {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    display: grid;
+    justify-items: center;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 10px;
+
+    @media (max-width: 1360px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media (max-width: 1060px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 720px) {
+      grid-template-columns: repeat(1, 1fr);
+    }
   }
 
   &__top {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    @media (max-width: 1060px) {
+      flex-direction: column;
+
+      .categories {
+        margin-bottom: 30px;
+      }
+    }
   }
 }
 
