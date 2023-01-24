@@ -31,7 +31,8 @@ function App() {
         alert("Error wtih getting API");
       }
     }
-
+    
+    window.scrollTo(0, 0);
     fetchData();
   }, []);
 
