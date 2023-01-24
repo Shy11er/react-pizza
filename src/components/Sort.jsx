@@ -1,10 +1,29 @@
 import React from "react";
 
+const sorts = ["popularity", "price", "alphabet"];
+
 export default function Sort() {
+  const [sortActive, setSortActive] = React.useState(0);
+  const [sortBy, setSortBy] = React.useState("popularity");
+  const [sortOpened, setSortOpened] = React.useState(false);
+
+  const onClickSort = (index) => {
+    setSortActive(index);
+    setSortBy(sorts[index]);
+  };
+
   return (
     <div className="sort">
       <div className="sort__label">
         <svg
+          onClick={() => {
+            setSortOpened(!sortOpened);
+          }}
+          style={
+            sortOpened == false
+              ? { transform: "rotate(180deg)", cursor: "pointer" }
+              : { cursor: "pointer" }
+          }
           width="10"
           height="6"
           viewBox="0 0 10 6"
@@ -17,15 +36,25 @@ export default function Sort() {
           />
         </svg>
         <b>Sort by:</b>
-        <span>popularity</span>
+        <span>{sortBy}</span>
       </div>
-      <div className="sort__popup">
-        <ul>
-          <li className="active">popularity</li>
-          <li>price</li>
-          <li>alphabet</li>
-        </ul>
-      </div>
+      {sortOpened && (
+        <div className="sort__popup">
+          <ul>
+            {sorts.map((item, index) => {
+              return (
+                <li
+                  className={sortActive == index ? "active" : ""}
+                  key={index}
+                  onClick={() => onClickSort(index)}
+                >
+                  {item}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
