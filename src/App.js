@@ -1,5 +1,7 @@
 import React from "react";
 
+import data from "./pizza_DB.json";
+
 import Header from "./components/Header";
 import Categories from "./components/Categories";
 import Sort from "./components/Sort";
@@ -19,8 +21,13 @@ function App() {
           </div>
           <h2 className="content__title">All pizzas</h2>
           <div className="content__items">
-            {[...Array(12)].map((item, index) => {
-              return <Card key={index} title={'pizza'} price={'400'} imageUrl={"https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg"} />
+            {data.map((item, index) => {
+              return (
+                <Card
+                  key={index}
+                  {...item}
+                />
+              );
             })}
           </div>
         </div>

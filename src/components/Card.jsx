@@ -1,7 +1,9 @@
 import React from "react";
 
-export default function Card({title, price, imageUrl}) {
+export default function Card({title, price, imageUrl, sizes, types}) {
   const [pizzaCount, setPizzaCount] = React.useState(0);
+  const [activeSize, setActiveSize] = React.useState(0);
+  const [activeTypes, setActiveTypes] = React.useState(0);
 
   const increaseAmount = () => {
     setPizzaCount((prev) => prev + 1);
@@ -18,13 +20,15 @@ export default function Card({title, price, imageUrl}) {
       <h4 className="pizza-block__title">{title}</h4>
       <div className="pizza-block__selector">
         <ul>
-          <li className="active">thin</li>
-          <li>traditional</li>
+          {types.map((item) => {
+            return <li key={item} className={activeTypes == item ? 'active' : null } onClick={() => {setActiveTypes(item)}}>{item == 0 ? "thin" : "traditional"}</li>
+          })}
+
         </ul>
         <ul>
-          <li className="active">26 cm.</li>
-          <li>30 cm.</li>
-          <li>40 cm.</li>
+          {sizes.map((item, index) => {
+            return <li className={activeSize == index ? 'active' : ''} key={index} onClick={() => {setActiveSize(index)}} >{item} cm.</li>
+          })}
         </ul>
       </div>
       <div className="pizza-block__bottom">
