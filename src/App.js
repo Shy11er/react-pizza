@@ -12,20 +12,21 @@ import AppContext from "./context";
 import "./scss/app.scss";
 
 function App() {
-  const [sortBy, setSortBy] = React.useState("popularity");
   const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
 
   React.useEffect(() => {
     async function fetchData() {
       try {
-        const [responseItems, data] = await Promise.all([
+        const [responseItems, data_pop, data_price, data_alp] = await Promise.all([
           axios.get("https://63c418a0a908563575316ae6.mockapi.io/items"),
-          require("./pizza_DB.json"),
+          require("./DB/pizza_DB_popularity.json"),
+          require("./DB/pizza_DB_price.json"),
+          require("./DB/pizza_DB_alphabet.json"),
         ]);
-
+        
         setIsLoading(false);
-        setItems(data);
+        setItems([data_pop, data_price, data_alp]);
       } catch (error) {
         console.error(error);
         alert("Error wtih getting API");
@@ -37,7 +38,7 @@ function App() {
   }, []);
 
   return (
-    <AppContext.Provider value={{ setSortBy, sortBy }}>
+    <AppContext.Provider value={{}}>
       <div className="wrapper">
         <Header />
         <Routes>

@@ -1,19 +1,14 @@
 import React from "react";
 
-import AppContext from "../context";
-
-export default function Sort() {
-  const { setSortBy, sortBy } = React.useContext(AppContext);
-  
+export default function Sort({ setSortItems, sortItems }) {
   const [sortActive, setSortActive] = React.useState(0);
-  // const [sortBy, setSortBy] = React.useState("popularity");
   const [sortOpened, setSortOpened] = React.useState(false);
 
   const sorts = ["popularity", "price", "alphabet"];
 
   const onClickSort = (index) => {
     setSortActive(index);
-    setSortBy(sorts[index]);
+    setSortItems(sorts[index]);
     setSortOpened(!sortOpened);
   };
 
@@ -46,7 +41,7 @@ export default function Sort() {
             setSortOpened(!sortOpened);
           }}
         >
-          {sortBy}
+          {sortItems}
         </span>
       </div>
       {sortOpened && (

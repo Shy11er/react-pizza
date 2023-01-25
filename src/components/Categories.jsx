@@ -1,12 +1,14 @@
 import React from "react";
 
-export default function Categories() {
+export default function Categories({ setCategoryItems }) {
   const [isActive, setIsActive] = React.useState(0);
+  // const [addToCategory, setAddToCategory] = React.useState([]);
 
   const liItems = ["All", "Meat", "Vegetarian", "Grill", "Spicy", "Closed"];
 
   const onClickCategory = (index) => {
     setIsActive(index);
+    setCategoryItems(index);
   };
 
   return (
