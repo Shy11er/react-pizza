@@ -198,5 +198,45 @@
     "price": 245,
     "category": 0,
     "rating": 6
+  },
+  {
+    "id": 20,
+    "imageUrl": "https://dodopizza.azureedge.net/static/Img/Products/Pizza/ru-RU/2ffc31bb-132c-4c99-b894-53f7107a1441.jpg",
+    "title": "Cheese",
+    "types": [0],
+    "sizes": [26, 40],
+    "price": 245,
+    "category": 0,
+    "rating": 6
+  },
+  {
+    "id": 21,
+    "imageUrl": "https://dodopizza.azureedge.net/static/Img/Products/Pizza/ru-RU/2ffc31bb-132c-4c99-b894-53f7107a1441.jpg",
+    "title": "Cheese",
+    "types": [0],
+    "sizes": [26, 40],
+    "price": 245,
+    "category": 0,
+    "rating": 6
+  },
+  {
+    "id": 22,
+    "imageUrl": "https://dodopizza.azureedge.net/static/Img/Products/Pizza/ru-RU/2ffc31bb-132c-4c99-b894-53f7107a1441.jpg",
+    "title": "Cheese",
+    "types": [0],
+    "sizes": [26, 40],
+    "price": 245,
+    "category": 0,
+    "rating": 6
+  },
+  {
+    "id": 23,
+    "imageUrl": "https://dodopizza.azureedge.net/static/Img/Products/Pizza/ru-RU/2ffc31bb-132c-4c99-b894-53f7107a1441.jpg",
+    "title": "Cheese",
+    "types": [0],
+    "sizes": [26, 40],
+    "price": 245,
+    "category": 0,
+    "rating": 6
   }
 ]
