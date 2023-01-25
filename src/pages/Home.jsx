@@ -14,7 +14,6 @@ const Home = ({ searchValue, setSearchValue }) => {
   const [sortItems, setSortItems] = React.useState("popularity");
   const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
-  // const [currentPage, setCurrentPage] = React.useState(0);
 
   React.useEffect(() => {
     async function fetchData() {
