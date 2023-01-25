@@ -331,3 +331,36 @@ body {
     }
   }
 }
+
+.pagination {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  li {
+    a {
+      cursor: pointer;
+      display: inline-block;
+      text-align: center;
+      line-height: 42px;
+      margin: 0 10px;
+      border-radius: 50%;
+      border: 1px solid #fe5f1e;
+      width: 45px;
+      height: 45px;
+      color: #fe5f1e;
+
+      &:hover {
+        background-color: #fe5f1e;
+        color: #fff;
+      }
+    }
+  }
+
+  .selected {
+    a{
+      background-color: #fe5f1e;
+        color: #fff;
+    }
+  }
+}
