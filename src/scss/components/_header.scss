@@ -12,6 +12,51 @@
     a {
       padding-right: 20px;
     }
+
+    .header_right{
+      display: flex;
+      flex-direction: row;
+
+      @media (max-width: 640px) {
+        flex-direction: column-reverse;
+        align-items: center;
+      }
+
+      .search__header__logo{
+        position: relative;
+      }
+
+      .search__header {
+        min-width: 140px;
+        padding: 10px 40px;
+        outline: none;
+        border: 1px solid #c1c1c1;
+        border-radius: 20px;
+        color: #7b7b7b;
+        font-size: 16px;
+        margin: 5px 20px;
+  
+        &:hover {
+          border: 1px solid #c2c2c2;
+        }
+        &::placeholder {
+          color: #7b7b7b;
+        }
+      }
+
+      .search__header__close{
+        position: absolute;
+        top: 17px;
+        right: 35px;
+        cursor: pointer;
+        width: 20px; 
+        height: 20px;
+
+        &:hover {
+          fill: #7b7b7b;
+        }
+      }
+    }
   }
 
   &__logo {
