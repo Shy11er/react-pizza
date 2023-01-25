@@ -1,8 +1,11 @@
 import React from "react";
 
-export default function Categories({ setCategoryItems }) {
+import AppContext from "../context";
+
+export default function Categories() {
+  const { setCategoryItems } = React.useContext(AppContext);
+
   const [isActive, setIsActive] = React.useState(0);
-  // const [addToCategory, setAddToCategory] = React.useState([]);
 
   const liItems = ["All", "Meat", "Vegetarian", "Grill", "Spicy", "Closed"];
 
@@ -18,7 +21,7 @@ export default function Categories({ setCategoryItems }) {
           return (
             <li
               key={index}
-              className={isActive == index ? "active" : ""}
+              className={isActive === index ? "active" : ""}
               onClick={() => {
                 onClickCategory(index);
               }}

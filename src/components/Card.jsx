@@ -48,12 +48,12 @@ export default function Card({
                   return (
                     <li
                       key={item}
-                      className={activeTypes == item ? "active" : null}
+                      className={activeTypes === item ? "active" : null}
                       onClick={() => {
                         setActiveTypes(item);
                       }}
                     >
-                      {item == 0 ? "thin" : "traditional"}
+                      {item === 0 ? "thin" : "traditional"}
                     </li>
                   );
                 })}
@@ -62,7 +62,7 @@ export default function Card({
                 {sizes.map((item, index) => {
                   return (
                     <li
-                      className={activeSize == index ? "active" : ""}
+                      className={activeSize === index ? "active" : ""}
                       key={index}
                       onClick={() => {
                         setActiveSize(index);

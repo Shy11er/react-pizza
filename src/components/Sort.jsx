@@ -1,9 +1,13 @@
 import React from "react";
 
-export default function Sort({ setSortItems, sortItems }) {
+import AppContext from "../context";
+
+export default function Sort() {
+  const { setSortItems, sortItems } = React.useContext(AppContext);
+
   const [sortActive, setSortActive] = React.useState(0);
   const [sortOpened, setSortOpened] = React.useState(false);
-
+  
   const sorts = ["popularity", "price", "alphabet"];
 
   const onClickSort = (index) => {
@@ -20,7 +24,7 @@ export default function Sort({ setSortItems, sortItems }) {
             setSortOpened(!sortOpened);
           }}
           style={
-            sortOpened == false
+            sortOpened === false
               ? { transform: "rotate(180deg)", cursor: "pointer" }
               : { cursor: "pointer" }
           }
@@ -50,7 +54,7 @@ export default function Sort({ setSortItems, sortItems }) {
             {sorts.map((item, index) => {
               return (
                 <li
-                  className={sortActive == index ? "active" : ""}
+                  className={sortActive === index ? "active" : ""}
                   key={index}
                   onClick={() => onClickSort(index)}
                 >
