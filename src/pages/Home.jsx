@@ -5,7 +5,7 @@ import Categories from "../components/Categories";
 import Sort from "../components/Sort";
 import Card from "../components/Card";
 import Skeleton from "../components/Skeleton";
-import Pagination from "../components/Pagination";
+// import Pagination from "../components/Pagination";
 
 import AppContext from "../context";
 
@@ -14,27 +14,27 @@ const Home = ({ searchValue, setSearchValue }) => {
   const [sortItems, setSortItems] = React.useState("popularity");
   const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
-  const [currentPage, setCurrentPage] = React.useState(0);
+  // const [currentPage, setCurrentPage] = React.useState(0);
 
   React.useEffect(() => {
     async function fetchData() {
       try {
-        const data = await Promise.all([
+        const [data_pop, data_price, data_alp] = await Promise.all([
           require("../DB/pizza_DB_popularity.json"),
           require("../DB/pizza_DB_price.json"),
           require("../DB/pizza_DB_alphabet.json"),
         ]);
 
         setIsLoading(false);
-        // setItems([data_pop, data_price, data_alp]);
-        for (let i = 0; i < data.length; i++) {
-          let d = [];
-          for (let j = currentPage*8; j < currentPage*8 + 8; j++) {
-            d.push(data[i][j]);
-          }
-          setItems([]);
-          setItems((prev) => [...prev, d]);
-        }
+        setItems([data_pop, data_price, data_alp]);
+        // for (let i = 0; i < data.length; i++) {
+        //   let d = [];
+        //   for (let j = currentPage*8; j < currentPage*8 + 8; j++) {
+        //     d.push(data[i][j]);
+        //   }
+        //   setItems([]);
+        //   setItems((prev) => [...prev, d]);
+        // }
       } catch (error) {
         console.error(error);
         alert("Error wtih getting API");
@@ -42,7 +42,7 @@ const Home = ({ searchValue, setSearchValue }) => {
     }
     window.scrollTo(0, 0);
     fetchData();
-  }, [currentPage]);
+  }, []);
 
   const renderItems = (categoryIndex, sort) => {
     let categoriedItems = [];
@@ -79,12 +79,12 @@ const Home = ({ searchValue, setSearchValue }) => {
       });
     } else {
       return categoriedItems
-      .filter((item) =>
-        item.title.toLowerCase().includes(searchValue.toLowerCase())
-      )
-      .map((item, index) => {
-        return <Card key={index} {...item} />;
-      });
+        .filter((item) =>
+          item.title.toLowerCase().includes(searchValue.toLowerCase())
+        )
+        .map((item, index) => {
+          return <Card key={index} {...item} />;
+        });
     }
   };
 
@@ -109,7 +109,7 @@ const Home = ({ searchValue, setSearchValue }) => {
             {renderItems(categoryItems, sortItems)}
           </div>
         </div>
-        <Pagination setCurrentPage={setCurrentPage} />
+        {/* <Pagination setCurrentPage={setCurrentPage} /> */}
       </div>
     </AppContext.Provider>
   );
