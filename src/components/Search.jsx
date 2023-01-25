@@ -1,12 +1,6 @@
 import React from "react";
 
-const Search = () => {
-  const [searchValue, setSearchValue] = React.useState("");
-
-  const onChangeSearchInput = (e) => {
-    setSearchValue(e.target.value);
-    console.log(searchValue);
-  };
+const Search = ({searchValue, setSearchValue}) => {
 
   return (
     <div className="search__header__logo">
@@ -31,12 +25,14 @@ const Search = () => {
         className="search__header"
         placeholder="Search pizza..."
         value={searchValue}
-        onChange={onChangeSearchInput}
+        onChange={(ev) => {setSearchValue(ev.target.value)}}
       />
       {searchValue && (
         <svg
           className="search__header__close"
-          onClick={() => {setSearchValue("")}}
+          onClick={() => {
+            setSearchValue("");
+          }}
           clipRule="evenodd"
           fillRule="evenodd"
           fill="#bebebe"

@@ -9,14 +9,18 @@ import NotFound from "./pages/NotFound";
 import "./scss/app.scss";
 
 function App() {
+  const [searchValue, setSearchValue] = React.useState("");
+
   return (
     <div className="wrapper">
-      <Header />
+      <Header searchValue={searchValue} setSearchValue={setSearchValue} />
       <Routes>
         <Route
           exact
           path="/"
-          element={<Home />}
+          element={
+            <Home searchValue={searchValue} setSearchValue={setSearchValue} />
+          }
         />
         <Route exact path="/cart" element={<Cart />} />
         <Route exact path="*" element={<NotFound />} />
