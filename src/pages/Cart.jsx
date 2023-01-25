@@ -126,7 +126,6 @@ const Cart = () => {
                     strokeLinejoin="round"
                   ></path>
                 </svg>
-
                 <span>Get back</span>
               </Link>
               <div className="button pay-btn">
