@@ -2,20 +2,20 @@ import React from "react";
 
 const CartItem = ({title, price, type, size, imageUrl, count}) => {
   return (
-    <div class="cart__item">
-      <div class="cart__item-img">
+    <div className="cart__item">
+      <div className="cart__item-img">
         <img
-          class="pizza-block__image"
+          className="pizza-block__image"
           src={imageUrl}
           alt="Pizza"
         />
       </div>
-      <div class="cart__item-info">
+      <div className="cart__item-info">
         <h3>{title}</h3>
         <p>{type} dough, {size} cm.</p>
       </div>
-      <div class="cart__item-count">
-        <div class="button button--outline button--circle cart__item-count-minus">
+      <div className="cart__item-count">
+        <div className="button button--outline button--circle cart__item-count-minus">
           <svg
             width="10"
             height="10"
@@ -34,7 +34,7 @@ const CartItem = ({title, price, type, size, imageUrl, count}) => {
           </svg>
         </div>
         <b>2</b>
-        <div class="button button--outline button--circle cart__item-count-plus">
+        <div className="button button--outline button--circle cart__item-count-plus">
           <svg
             width="10"
             height="10"
@@ -53,11 +53,11 @@ const CartItem = ({title, price, type, size, imageUrl, count}) => {
           </svg>
         </div>
       </div>
-      <div class="cart__item-price">
+      <div className="cart__item-price">
         <b>{price} $</b>
       </div>
-      <div class="cart__item-remove">
-        <div class="button button--outline button--circle">
+      <div className="cart__item-remove">
+        <div className="button button--outline button--circle">
           <svg
             width="10"
             height="10"
