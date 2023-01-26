@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-// import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import Categories from "../components/Categories";
 import Sort from "../components/Sort";
@@ -9,31 +9,19 @@ import Skeleton from "../components/Skeleton";
 import Pagination from "../components/Pagination";
 
 import AppContext from "../context";
-// import { setCategoryId } from "../redux/slices/filterSlice";
+import { setCategoryId } from "../redux/slices/filterSlice";
 
 const Home = ({ searchValue, setSearchValue }) => {
-  // const dispatch = useDispatch();
-  // const catsegoryId = useSelector(state => state.filter.categoryId);
+  const dispatch = useDispatch();
+  const categoryId = useSelector(state => state.filter.categoryId);
 
-  // const [categoryItems, setCategoryItems] = React.useState(0);
   const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
-  const [categoryId, setCategoryId] = React.useState(0);
   const [currentPage, setCurrentPage] = React.useState(1);
   const [sortType, setSortType] = React.useState({
     name: "popularity (Asceding)",
     sortProperty: "-rating",
   });
-
-  const onChangeCategory = (id) => {
-    // console.log(id);
-    // dispatch(setCategoryId(id));
-    setCategoryId(id);
-  };
-
-  const onChangeSort = (obj) => {
-    setSortType(obj);
-  };
 
   React.useEffect(() => {
     async function fetchData() {
@@ -70,6 +58,14 @@ const Home = ({ searchValue, setSearchValue }) => {
         return <Card key={index} {...item} />;
       });
     }
+  };
+
+  const onChangeCategory = (id) => {
+    dispatch(setCategoryId(id));
+  };
+
+  const onChangeSort = (obj) => {
+    setSortType(obj);
   };
 
   return (
