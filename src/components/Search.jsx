@@ -8,8 +8,8 @@ const Search = ({searchValue, setSearchValue}) => {
         style={{
           cursor: "pointer",
           position: "absolute",
-          top: "15px",
-          left: "30px",
+          top: "12px",
+          left: "20px",
         }}
         width="24"
         height="24"

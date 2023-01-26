@@ -1,4 +1,4 @@
-@import '../variables.scss';
+@import "../variables.scss";
 
 .header {
   border-bottom: 1px solid $gray-line;
@@ -8,48 +8,64 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    
+
     a {
       padding-right: 20px;
     }
 
-    .header_right{
+    .header_right {
       display: flex;
       flex-direction: row;
 
-      @media (max-width: 640px) {
+      .search__header__logo {
+        position: relative;
+
+        .search__header {
+          min-width: 140px;
+          padding: 10px 40px;
+          height: 48px;
+          outline: none;
+          border: 1px solid #c1c1c1;
+          border-radius: 20px;
+          color: #7b7b7b;
+          font-size: 16px;
+          margin: 0 10px;
+
+          &:hover {
+            border: 1px solid #c2c2c2;
+          }
+          &::placeholder {
+            color: #7b7b7b;
+          }
+        }
+
+        @media (max-width: 800px) {
+          flex-direction: column-reverse;
+          align-items: center;
+
+          .search__header {
+            margin: 5px;
+            width: 200px;
+          }
+
+          .search__header__close {
+            top: 20px;
+            right: 20px;
+          }
+        }
+      }
+
+      @media (max-width: 800px) {
         flex-direction: column-reverse;
         align-items: center;
       }
 
-      .search__header__logo{
-        position: relative;
-      }
-
-      .search__header {
-        min-width: 140px;
-        padding: 10px 40px;
-        outline: none;
-        border: 1px solid #c1c1c1;
-        border-radius: 20px;
-        color: #7b7b7b;
-        font-size: 16px;
-        margin: 5px 20px;
-  
-        &:hover {
-          border: 1px solid #c2c2c2;
-        }
-        &::placeholder {
-          color: #7b7b7b;
-        }
-      }
-
-      .search__header__close{
+      .search__header__close {
         position: absolute;
-        top: 17px;
-        right: 35px;
+        top: 15px;
+        right: 25px;
         cursor: pointer;
-        width: 20px; 
+        width: 20px;
         height: 20px;
 
         &:hover {
@@ -85,7 +101,7 @@
 
     p {
       color: #7b7b7b;
-      
+
       @media (max-width: 560px) {
         font-size: 14px;
       }

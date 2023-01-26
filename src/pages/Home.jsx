@@ -56,7 +56,7 @@ const Home = ({ searchValue, setSearchValue }) => {
         alert("Error wtih getting API");
       }
     }
-    // window.scrollTo(0, 0);
+    window.scrollTo(0, 0);
     fetchData();
   }, [categoryId, sortType, searchValue, currentPage]);
 
