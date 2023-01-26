@@ -9,7 +9,7 @@ const Pagination = ({ setCurrentPage }) => {
       previousLabel="<"
       nextLabel=">"
       onPageChange={(e) => {
-        setCurrentPage(e.selected);
+        setCurrentPage(e.selected + 1);
       }}
       pageRangeDisplayed={8}
       pageCount={3}

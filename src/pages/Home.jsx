@@ -6,7 +6,7 @@ import Categories from "../components/Categories";
 import Sort from "../components/Sort";
 import Card from "../components/Card";
 import Skeleton from "../components/Skeleton";
-// import Pagination from "../components/Pagination";
+import Pagination from "../components/Pagination";
 
 import AppContext from "../context";
 // import { setCategoryId } from "../redux/slices/filterSlice";
@@ -19,6 +19,7 @@ const Home = ({ searchValue, setSearchValue }) => {
   const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
   const [categoryId, setCategoryId] = React.useState(0);
+  const [currentPage, setCurrentPage] = React.useState(1);
   const [sortType, setSortType] = React.useState({
     name: "popularity (Asceding)",
     sortProperty: "-rating",
@@ -42,9 +43,10 @@ const Home = ({ searchValue, setSearchValue }) => {
         const order = sortType.sortProperty.includes("-") ? "asc" : "desc";
         const sortBy = sortType.sortProperty.replace("-", "");
         const category = categoryId > 0 ? `category=${categoryId}` : "";
+        const search = searchValue ? `&search=${searchValue}` : "";
 
         const { data } = await axios.get(
-          `https://63c418a0a908563575316ae6.mockapi.io/items?${category}&sortBy=${sortBy}&order=${order}`
+          `https://63c418a0a908563575316ae6.mockapi.io/items?${category}&sortBy=${sortBy}&order=${order}${search}&page=${currentPage}&limit=8`
         );
 
         setIsLoading(false);
@@ -56,49 +58,17 @@ const Home = ({ searchValue, setSearchValue }) => {
     }
     // window.scrollTo(0, 0);
     fetchData();
-  }, [categoryId, sortType]);
+  }, [categoryId, sortType, searchValue, currentPage]);
 
-  const renderItems = (categoryIndex) => {
-    // let categoriedItems = [];
-
-    // if (sort === "popularity") {
-    //   if (categoryIndex === 0) {
-    //     categoriedItems = items[0];
-    //   } else {
-    //     categoriedItems = items[0].filter(
-    //       (obj) => obj.category === categoryIndex
-    //     );
-    //   }
-    // } else if (sort === "price") {
-    //   if (categoryIndex === 0) {
-    //     categoriedItems = items[1];
-    //   } else {
-    //     categoriedItems = items[1].filter(
-    //       (obj) => obj.category === categoryIndex
-    //     );
-    //   }
-    // } else {
-    //   if (categoryIndex === 0) {
-    //     categoriedItems = items[2];
-    //   } else {
-    //     categoriedItems = items[2].filter(
-    //       (obj) => obj.category === categoryIndex
-    //     );
-    //   }
-    // }
-
+  const renderItems = () => {
     if (isLoading) {
       return [...Array(12)].map((item, index) => {
         return <Skeleton key={index} />;
       });
     } else {
-      return items
-        .filter((item) =>
-          item.title.toLowerCase().includes(searchValue.toLowerCase())
-        )
-        .map((item, index) => {
-          return <Card key={index} {...item} />;
-        });
+      return items.map((item, index) => {
+        return <Card key={index} {...item} />;
+      });
     }
   };
 
@@ -120,9 +90,9 @@ const Home = ({ searchValue, setSearchValue }) => {
             <Sort />
           </div>
           <h2 className="content__title">All pizzas</h2>
-          <div className="content__items">{renderItems(categoryId)}</div>
+          <div className="content__items">{renderItems()}</div>
         </div>
-        {/* <Pagination setCurrentPage={setCurrentPage} /> */}
+        <Pagination setCurrentPage={setCurrentPage} />
       </div>
     </AppContext.Provider>
   );
