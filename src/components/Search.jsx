@@ -1,6 +1,26 @@
 import React from "react";
+import debounce from "lodash.debounce";
 
-const Search = ({searchValue, setSearchValue}) => {
+const Search = ({ setSearchValue }) => {
+  const [value, setValue] = React.useState('');
+  const inputRef = React.useRef();
+
+  const updateSearchValue = React.useCallback(
+    debounce((ev) => {
+      setSearchValue(ev);
+    }, 500), [],
+  );
+
+  const onChangeInput = (ev) => {
+    setValue(ev.target.value);
+    updateSearchValue(ev.target.value);
+  };
+
+  const onClickClose = () => {
+    setSearchValue("");
+    setValue("");
+    inputRef.current.focus();
+  };
 
   return (
     <div className="search__header__logo">
@@ -20,19 +40,19 @@ const Search = ({searchValue, setSearchValue}) => {
       >
         <path d="M15.853 16.56c-1.683 1.517-3.911 2.44-6.353 2.44-5.243 0-9.5-4.257-9.5-9.5s4.257-9.5 9.5-9.5 9.5 4.257 9.5 9.5c0 2.442-.923 4.67-2.44 6.353l7.44 7.44-.707.707-7.44-7.44zm-6.353-15.56c4.691 0 8.5 3.809 8.5 8.5s-3.809 8.5-8.5 8.5-8.5-3.809-8.5-8.5 3.809-8.5 8.5-8.5z" />
       </svg>
-
       <input
+        ref={inputRef}
         className="search__header"
         placeholder="Search pizza..."
-        value={searchValue}
-        onChange={(ev) => {setSearchValue(ev.target.value)}}
+        value={value}
+        onChange={(ev) => {
+          onChangeInput(ev);
+        }}
       />
-      {searchValue && (
+      {value && (
         <svg
           className="search__header__close"
-          onClick={() => {
-            setSearchValue("");
-          }}
+          onClick={onClickClose}
           clipRule="evenodd"
           fillRule="evenodd"
           fill="#bebebe"
