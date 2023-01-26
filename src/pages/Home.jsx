@@ -9,16 +9,15 @@ import Skeleton from "../components/Skeleton";
 import Pagination from "../components/Pagination";
 
 import AppContext from "../context";
-import { setCategoryId } from "../redux/slices/filterSlice";
+import { setCategoryId, setCurrentPage } from "../redux/slices/filterSlice";
 
 const Home = ({ searchValue, setSearchValue }) => {
   const dispatch = useDispatch();
-  const { categoryId, sort } = useSelector((state) => state.filter);
+  const { categoryId, sort, currentPage } = useSelector((state) => state.filter);
   const sortType = sort.sortProperty;
 
   const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
-  const [currentPage, setCurrentPage] = React.useState(1);
 
   React.useEffect(() => {
     async function fetchData() {
@@ -61,6 +60,10 @@ const Home = ({ searchValue, setSearchValue }) => {
     dispatch(setCategoryId(id));
   };
 
+  const onClickCurrentPage = (pageId) => {
+    dispatch(setCurrentPage(pageId))
+  }
+
   return (
     <AppContext.Provider
       value={{
@@ -80,7 +83,7 @@ const Home = ({ searchValue, setSearchValue }) => {
           <h2 className="content__title">All pizzas</h2>
           <div className="content__items">{renderItems()}</div>
         </div>
-        <Pagination setCurrentPage={setCurrentPage} />
+        <Pagination onClickCurrentPage={onClickCurrentPage} />
       </div>
     </AppContext.Provider>
   );
