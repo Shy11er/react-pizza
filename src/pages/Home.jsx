@@ -64,11 +64,11 @@ const Home = ({ searchValue, setSearchValue }) => {
 
         const sortBy = sort.sortProperty.replace("-", "");
         const order = sort.sortProperty.includes("-") ? "asc" : "desc";
-        const category = categoryId > 0 ? `category=${categoryId}` : "";
+        const category = categoryId > 0 ? `&category=${categoryId}` : "";
         const search = searchValue ? `&search=${searchValue}` : "";
         console.log(order)
         const { data } = await axios.get(
-          `https://63c418a0a908563575316ae6.mockapi.io/items?page=${currentPage}&limit=8&${category}&sortBy=${sortBy}&order=${order}${search}`
+          `https://63c418a0a908563575316ae6.mockapi.io/items?page=${currentPage}&limit=8${category}&sortBy=${sortBy}&order=${order}${search}`
         );
 
         setIsLoading(false);
