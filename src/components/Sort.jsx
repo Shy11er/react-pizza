@@ -3,31 +3,28 @@ import React from "react";
 import AppContext from "../context";
 
 export default function Sort() {
-  const { setSortItems, sortItems } = React.useContext(AppContext);
+  const { onChangeSort, sortType } = React.useContext(AppContext);
 
-  const [sortActive, setSortActive] = React.useState(0);
-  const [sortOpened, setSortOpened] = React.useState(false);
-  
-  const sorts = ["popularity", "price", "alphabet"];
+  const [open, setOpen] = React.useState(false);
 
-  const onClickSort = (index) => {
-    setSortActive(index);
-    setSortItems(sorts[index]);
-    setSortOpened(!sortOpened);
-  };
+  const sorts = [
+    { name: "popularity (Ascending)", sortProperty: "-rating" },
+    { name: "popularity (Descending)", sortProperty: "rating" },
+    { name: "price (Ascending)", sortProperty: "-price" },
+    { name: "price (Descending)", sortProperty: "price" },
+    { name: "alphabet (Ascending)", sortProperty: "-title" },
+    { name: "alphabet (Descending)", sortProperty: "title" },
+  ];
 
   return (
     <div className="sort">
       <div className="sort__label">
         <svg
           onClick={() => {
-            setSortOpened(!sortOpened);
+            setOpen(!open);
           }}
-          style={
-            sortOpened === false
-              ? { transform: "rotate(180deg)", cursor: "pointer" }
-              : { cursor: "pointer" }
-          }
+          style={open === false ? { transform: "rotate(180deg)" } : {}}
+          cursor="pointer"
           width="10"
           height="6"
           viewBox="0 0 10 6"
@@ -42,23 +39,28 @@ export default function Sort() {
         <b>Sort by:</b>
         <span
           onClick={() => {
-            setSortOpened(!sortOpened);
+            setOpen(!open);
           }}
         >
-          {sortItems}
+          {sortType.name}
         </span>
       </div>
-      {sortOpened && (
+      {open && (
         <div className="sort__popup">
           <ul>
             {sorts.map((item, index) => {
               return (
                 <li
-                  className={sortActive === index ? "active" : ""}
+                  className={
+                    sortType.sortProperty === item.sortProperty ? "active" : ""
+                  }
                   key={index}
-                  onClick={() => onClickSort(index)}
+                  onClick={() => {
+                    onChangeSort(item);
+                    setOpen(!open);
+                  }}
                 >
-                  {item}
+                  {item.name}
                 </li>
               );
             })}

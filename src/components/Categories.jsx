@@ -3,11 +3,9 @@ import React from "react";
 import AppContext from "../context";
 
 export default function Categories() {
-  const { onChangeCategory } = React.useContext(AppContext);
+  const { onChangeCategory, categoryId } = React.useContext(AppContext);
 
-  const [isActive, setIsActive] = React.useState(0);
-
-  const liItems = ["All", "Meat", "Vegetarian", "Grill", "Spicy", "Closed"];
+  const categories = ["All", "Meat", "Vegetarian", "Grill", "Spicy", "Closed"];
 
   // const onClickCategory = (index) => {
   //   setIsActive(index);
@@ -17,13 +15,12 @@ export default function Categories() {
   return (
     <div className="categories">
       <ul>
-        {liItems.map((item, index) => {
+        {categories.map((item, index) => {
           return (
             <li
               key={index}
-              className={isActive === index ? "active" : ""}
+              className={categoryId === index ? "active" : ""}
               onClick={() => {
-                setIsActive(index);
                 onChangeCategory(index);
               }}
             >
