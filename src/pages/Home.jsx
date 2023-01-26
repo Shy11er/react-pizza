@@ -1,5 +1,6 @@
 import React from "react";
 // import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
 
 import Categories from "../components/Categories";
 import Sort from "../components/Sort";
@@ -8,12 +9,21 @@ import Skeleton from "../components/Skeleton";
 // import Pagination from "../components/Pagination";
 
 import AppContext from "../context";
+import { setCategoryId } from "../redux/slices/filterSlice";
 
 const Home = ({ searchValue, setSearchValue }) => {
-  const [categoryItems, setCategoryItems] = React.useState(0);
+  const dispatch = useDispatch();
+  const categoryId = useSelector(state => state.filter.categoryId);
+
+  // const [categoryItems, setCategoryItems] = React.useState(0);
   const [sortItems, setSortItems] = React.useState("popularity");
   const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
+
+  const onChangeCategory = (id) => {
+    // console.log(id);
+    dispatch(setCategoryId(id));
+  };
 
   React.useEffect(() => {
     async function fetchData() {
@@ -90,7 +100,7 @@ const Home = ({ searchValue, setSearchValue }) => {
   return (
     <AppContext.Provider
       value={{
-        setCategoryItems,
+        onChangeCategory,
         setSortItems,
         sortItems,
         searchValue,
@@ -105,7 +115,7 @@ const Home = ({ searchValue, setSearchValue }) => {
           </div>
           <h2 className="content__title">All pizzas</h2>
           <div className="content__items">
-            {renderItems(categoryItems, sortItems)}
+            {renderItems(categoryId, sortItems)}
           </div>
         </div>
         {/* <Pagination setCurrentPage={setCurrentPage} /> */}

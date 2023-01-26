@@ -3,16 +3,16 @@ import React from "react";
 import AppContext from "../context";
 
 export default function Categories() {
-  const { setCategoryItems } = React.useContext(AppContext);
+  const { onChangeCategory } = React.useContext(AppContext);
 
   const [isActive, setIsActive] = React.useState(0);
 
   const liItems = ["All", "Meat", "Vegetarian", "Grill", "Spicy", "Closed"];
 
-  const onClickCategory = (index) => {
-    setIsActive(index);
-    setCategoryItems(index);
-  };
+  // const onClickCategory = (index) => {
+  //   setIsActive(index);
+  //   setCategoryItems(index);
+  // };
 
   return (
     <div className="categories">
@@ -23,7 +23,8 @@ export default function Categories() {
               key={index}
               className={isActive === index ? "active" : ""}
               onClick={() => {
-                onClickCategory(index);
+                setIsActive(index);
+                onChangeCategory(index);
               }}
             >
               {item}
