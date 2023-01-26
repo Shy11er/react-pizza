@@ -2,7 +2,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 import CartItem from "../components/CartItem";
 
+import { useSelector, useDispatch } from "react-redux";
+import { removeItem, clearItems } from "../redux/slices/cartSlice";
+
 const Cart = () => {
+  const dispatch = useDispatch();
+  const items = useSelector((state) => state.cart.items);
+  const { totalPrice } = useSelector((state) => state.cart);
+
   return (
     <div className="content">
       <div className="container container--cart">
@@ -40,7 +47,12 @@ const Cart = () => {
               </svg>
               Cart
             </h2>
-            <div className="cart__clear">
+            <div
+              onClick={() => {
+                dispatch(clearItems());
+              }}
+              className="cart__clear"
+            >
               <svg
                 width="20"
                 height="20"
@@ -77,23 +89,13 @@ const Cart = () => {
                   strokeLinejoin="round"
                 ></path>
               </svg>
-
               <span>Empty trash</span>
             </div>
           </div>
           <div className="content__items_cart">
-            {[...Array(4)].map((item, index) => {
-              return (
-                <CartItem
-                  key={index}
-                  title="Margarita"
-                  price="200"
-                  imageUrl="https://dodopizza.azureedge.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg"
-                  size="26"
-                  type="thin"
-                />
-              );
-            })}
+            {items.map((item, index) => (
+              <CartItem key={index} {...item} />
+            ))}
           </div>
           <div className="cart__bottom">
             <div className="cart__bottom-details">
@@ -103,7 +105,7 @@ const Cart = () => {
               </span>
               <span>
                 {" "}
-                Order price: <b>900 $</b>{" "}
+                Order price: <b>{totalPrice} $</b>{" "}
               </span>
             </div>
             <div className="cart__bottom-buttons">

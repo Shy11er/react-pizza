@@ -131,8 +131,10 @@
   }
 
   &--cart {
-    width: 140px;
+    width: 160px;
     display: flex;
+    justify-content: center;
+    align-items: center;
     align-items: center;
     line-height: 23px;
     padding: 10px;

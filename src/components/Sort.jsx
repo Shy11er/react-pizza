@@ -1,4 +1,3 @@
-import { set } from "lodash";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -24,7 +23,6 @@ export default function Sort() {
     const handleClickOutside = (ev) => {
       if (!ev.srcElement.className.includes('SORT')){
         setOpen(false);
-        console.log("sd");
       }
     } 
     document.body.addEventListener("click", handleClickOutside);

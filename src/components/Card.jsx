@@ -1,9 +1,33 @@
 import React from "react";
 
-export default function Card({ title, price, imageUrl, sizes, types }) {
-  const [pizzaCount, setPizzaCount] = React.useState(0);
+import { useDispatch, useSelector } from "react-redux";
+import { addItem } from "../redux/slices/cartSlice";
+
+const typeNames = ["thin", "traditional"];
+
+export default function Card({ id, title, price, imageUrl, sizes, types }) {
+  const dispatch = useDispatch();
+  const cartItem = useSelector((state) =>
+    state.cart.items.find((obj) => obj.id === id)
+  );
+
   const [activeSize, setActiveSize] = React.useState(0);
   const [activeTypes, setActiveTypes] = React.useState(0);
+
+  const addedItem = cartItem ? cartItem.count : 0;
+
+  const onClickAdd = () => {
+    const item = {
+      id,
+      title,
+      price,
+      imageUrl,
+      type: typeNames[activeSize],
+      size: sizes[activeSize],
+    };
+
+    dispatch(addItem(item));
+  };
 
   return (
     <>
@@ -21,7 +45,7 @@ export default function Card({ title, price, imageUrl, sizes, types }) {
                     setActiveTypes(item);
                   }}
                 >
-                  {item === 0 ? "thin" : "traditional"}
+                  {typeNames[item]}
                 </li>
               );
             })}
@@ -45,9 +69,7 @@ export default function Card({ title, price, imageUrl, sizes, types }) {
         <div className="pizza-block__bottom">
           <div className="pizza-block__price">from {price} $</div>
           <button
-            onClick={() => {
-              setPizzaCount((prev) => prev + 1);
-            }}
+            onClick={onClickAdd}
             className="button button--outline button--add"
           >
             <svg
@@ -63,7 +85,7 @@ export default function Card({ title, price, imageUrl, sizes, types }) {
               />
             </svg>
             <span>Add</span>
-            <i>{pizzaCount}</i>
+            {addedItem > 0 && <i>{addedItem}</i>}
           </button>
         </div>
       </div>
