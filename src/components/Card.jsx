@@ -5,10 +5,6 @@ export default function Card({ title, price, imageUrl, sizes, types }) {
   const [activeSize, setActiveSize] = React.useState(0);
   const [activeTypes, setActiveTypes] = React.useState(0);
 
-  const increaseAmount = () => {
-    setPizzaCount((prev) => prev + 1);
-  };
-
   return (
     <>
       <div className="pizza-block">
@@ -49,7 +45,9 @@ export default function Card({ title, price, imageUrl, sizes, types }) {
         <div className="pizza-block__bottom">
           <div className="pizza-block__price">from {price} $</div>
           <button
-            onClick={increaseAmount}
+            onClick={() => {
+              setPizzaCount((prev) => prev + 1);
+            }}
             className="button button--outline button--add"
           >
             <svg

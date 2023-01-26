@@ -23,6 +23,7 @@
   &__image {
     width: 260px;
     height: 260px;
+    border-radius: 50%;
     animation: skeleton-loading 1s linear infinite alternate;
   }
 
