@@ -13,23 +13,20 @@ import { setCategoryId } from "../redux/slices/filterSlice";
 
 const Home = ({ searchValue, setSearchValue }) => {
   const dispatch = useDispatch();
-  const categoryId = useSelector(state => state.filter.categoryId);
+  const { categoryId, sort } = useSelector((state) => state.filter);
+  const sortType = sort.sortProperty;
 
   const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
   const [currentPage, setCurrentPage] = React.useState(1);
-  const [sortType, setSortType] = React.useState({
-    name: "popularity (Asceding)",
-    sortProperty: "-rating",
-  });
 
   React.useEffect(() => {
     async function fetchData() {
       try {
         setIsLoading(true);
 
-        const order = sortType.sortProperty.includes("-") ? "asc" : "desc";
-        const sortBy = sortType.sortProperty.replace("-", "");
+        const order = sortType.includes("-") ? "asc" : "desc";
+        const sortBy = sortType.replace("-", "");
         const category = categoryId > 0 ? `category=${categoryId}` : "";
         const search = searchValue ? `&search=${searchValue}` : "";
 
@@ -64,19 +61,14 @@ const Home = ({ searchValue, setSearchValue }) => {
     dispatch(setCategoryId(id));
   };
 
-  const onChangeSort = (obj) => {
-    setSortType(obj);
-  };
-
   return (
     <AppContext.Provider
       value={{
-        sortType,
-        onChangeSort,
         categoryId,
         onChangeCategory,
         searchValue,
         setSearchValue,
+        sortType,
       }}
     >
       <div className="content">

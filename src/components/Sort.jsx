@@ -1,20 +1,22 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import AppContext from "../context";
+import { setSort } from "../redux/slices/filterSlice";
+
+const sorts = [
+  { name: "popularity (Descending)", sortProperty: "rating" },
+  { name: "popularity (Ascending)", sortProperty: "-rating" },
+  { name: "price (Descending)", sortProperty: "price" },
+  { name: "price (Ascending)", sortProperty: "-price" },
+  { name: "alphabet (Descending)", sortProperty: "title" },
+  { name: "alphabet (Ascending)", sortProperty: "-title" },
+];
 
 export default function Sort() {
-  const { onChangeSort, sortType } = React.useContext(AppContext);
+  const dispatch = useDispatch();
+  const sort = useSelector((state) => state.filter.sort);
 
   const [open, setOpen] = React.useState(false);
-
-  const sorts = [
-    { name: "popularity (Ascending)", sortProperty: "-rating" },
-    { name: "popularity (Descending)", sortProperty: "rating" },
-    { name: "price (Ascending)", sortProperty: "-price" },
-    { name: "price (Descending)", sortProperty: "price" },
-    { name: "alphabet (Ascending)", sortProperty: "-title" },
-    { name: "alphabet (Descending)", sortProperty: "title" },
-  ];
 
   return (
     <div className="sort">
@@ -42,7 +44,7 @@ export default function Sort() {
             setOpen(!open);
           }}
         >
-          {sortType.name}
+          {sort.name}
         </span>
       </div>
       {open && (
@@ -52,12 +54,12 @@ export default function Sort() {
               return (
                 <li
                   className={
-                    sortType.sortProperty === item.sortProperty ? "active" : ""
+                    item.sortProperty === sort.sortProperty ? "active" : ""
                   }
                   key={index}
                   onClick={() => {
-                    onChangeSort(item);
                     setOpen(!open);
+                    dispatch(setSort(item));
                   }}
                 >
                   {item.name}
