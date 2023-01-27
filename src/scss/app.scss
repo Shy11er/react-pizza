@@ -58,13 +58,22 @@ body {
   }
 }
 
+.cart__empty {
+  display: flex;
+  padding: 90px;
+
+  @media (max-width: 700px) {
+    padding: 50px;
+  }
+}
+
 .container {
   width: $container-width;
   margin: 0 auto;
 
   &--cart {
     max-width: 820px;
-    margin: 90px auto;
+    padding: 90px auto;
     .content__title {
       margin: 0;
     }
@@ -358,9 +367,9 @@ body {
   }
 
   .selected {
-    a{
+    a {
       background-color: #fe5f1e;
-        color: #fff;
+      color: #fff;
     }
   }
 }
