@@ -8,6 +8,7 @@ import Sort, { sorts } from "../components/Sort";
 import Card from "../components/Card";
 import Skeleton from "../components/Skeleton";
 import Pagination from "../components/Pagination";
+import NothingWasFound from "../components/NothingWasFound";
 
 import AppContext from "../context";
 import {
@@ -18,7 +19,7 @@ import {
 
 import { fetchPizzas } from "../redux/slices/pizzasSlice";
 
-const Home = ({ searchValue, setSearchValue }) => {
+const Home = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isSearch = React.useRef(false);
@@ -26,7 +27,7 @@ const Home = ({ searchValue, setSearchValue }) => {
 
   const { items, status } = useSelector((state) => state.pizzas);
 
-  const { categoryId, sort, currentPage } = useSelector(
+  const { categoryId, sort, currentPage, searchValue } = useSelector(
     (state) => state.filter
   );
 
@@ -99,29 +100,29 @@ const Home = ({ searchValue, setSearchValue }) => {
   return (
     <AppContext.Provider
       value={{
-        categoryId,
         onChangeCategory,
-        searchValue,
-        setSearchValue,
+        categoryId,
       }}
     >
       <div className="content">
         <div className="container">
-          {status === "error" ? (
-            <div className="empty_home">
-              <h2>An error has occurred🥺</h2>
-              <p>Failed to get pizzas</p>
-            </div>
-          ) : (
-            <>
-              <div className="content__top">
-                <Categories />
-                <Sort />
+          {items.length === 0 ? (<NothingWasFound />) : (
+            status === "error" ? (
+              <div className="empty_home">
+                <h2>An error has occurred🥺</h2>
+                <p>Failed to get pizzas</p>
               </div>
-              <h2 className="content__title">All pizzas</h2>
-              <div className="content__items">{renderItems()}</div>
-              <Pagination onClickCurrentPage={onClickCurrentPage} />
-            </>
+            ) : (
+              <>
+                <div className="content__top">
+                  <Categories />
+                  <Sort />
+                </div>
+                <h2 className="content__title">All pizzas</h2>
+                <div className="content__items">{renderItems()}</div>
+                { items.length === 0 ? (<></>) : <Pagination onClickCurrentPage={onClickCurrentPage} />}
+              </>
+            )
           )}
         </div>
       </div>

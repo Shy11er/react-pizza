@@ -21,7 +21,7 @@ export default function Sort() {
 
   React.useEffect(() => {
     const handleClickOutside = (ev) => {
-      if (!ev.srcElement.className.includes('SORT')){
+      if (!ev.srcElement?.className?.includes('SORT')){
         setOpen(false);
       }
     } 
