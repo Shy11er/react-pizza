@@ -1,11 +1,12 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import axios from "axios";
 
 const FullPizza = () => {
   const { id } = useParams();
   const [items, setItems] = React.useState();
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     async function fetchData() {
@@ -17,15 +18,15 @@ const FullPizza = () => {
         setItems(data);
       } catch (err) {
         console.error(err);
-        alert("Error with getting datas");
+        alert("Sorry we can't accommodate your request!");
+        navigate("/");
       }
     }
 
     fetchData();
   }, []);
 
-  if (!items) return
-  
+  if (!items) return;
 
   return (
     <div>

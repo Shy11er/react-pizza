@@ -1,11 +1,14 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 
-import AppContext from "../context";
+import { setCategoryId } from "../redux/slices/filterSlice";
 
 const categories = ["All", "Meat", "Vegetarian", "Grill", "Spicy", "Closed"];
 
+
 export default function Categories() {
-  const { onChangeCategory, categoryId } = React.useContext(AppContext);
+  const dispatch = useDispatch();
+  const categoryId  = useSelector((state) => state.filter.categoryId);
 
   return (
     <div className="categories">
@@ -16,7 +19,7 @@ export default function Categories() {
               key={index}
               className={categoryId === index ? "active" : ""}
               onClick={() => {
-                onChangeCategory(index);
+                dispatch(setCategoryId(index));
               }}
             >
               {item}
