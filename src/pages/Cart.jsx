@@ -3,12 +3,13 @@ import { Link } from "react-router-dom";
 import CartItem from "../components/CartItem";
 
 import { useSelector, useDispatch } from "react-redux";
-import { removeItem, clearItems } from "../redux/slices/cartSlice";
+import { clearItems } from "../redux/slices/cartSlice";
 
 const Cart = () => {
   const dispatch = useDispatch();
-  const items = useSelector((state) => state.cart.items);
-  const { totalPrice } = useSelector((state) => state.cart);
+  const { items, totalPrice } = useSelector((state) => state.cart);
+
+  const total = items.reduce((sum, item) => sum + item.count, 0);
 
   return (
     <div className="content">
@@ -101,7 +102,7 @@ const Cart = () => {
             <div className="cart__bottom-details">
               <span>
                 {" "}
-                Total pizzas: <b>3 pcs.</b>{" "}
+                Total pizzas: <b>{total} pcs.</b>{" "}
               </span>
               <span>
                 {" "}

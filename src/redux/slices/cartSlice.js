@@ -19,19 +19,39 @@ const cartSlice = createSlice({
         state.items.push({ ...action.payload, count: 1 });
       }
 
-      state.totalPrice += Number(action.payload.price);
+      state.totalPrice = state.items.reduce((sum, obj) => {
+        return sum + obj.price * obj.count;
+      }, 0);
+    },
+    minusItem(state, action) {
+      const findItem = state.items.find((obj) => obj.id === action.payload);
+
+      if (findItem) {
+        findItem.count--;
+
+        if (findItem.count < 1) {
+          state.items = state.items.filter((obj) => obj.id !== action.payload);
+        }
+      }
+
+      state.totalPrice = state.items.reduce((sum, obj) => {
+        return sum + obj.price * obj.count;
+      }, 0);
     },
     removeItem(state, action) {
-      state.items.filter((obj) => obj.id !== action.payload);
+      if (window.confirm("Are you sure to remove this pizza?")) {
+        state.items = state.items.filter((obj) => obj.id !== action.payload);
+      }
+
+      state.totalPrice = state.items.reduce((sum, obj) => {
+        return sum + obj.price * obj.count;
+      }, 0);
     },
     clearItems(state) {
-      state.items = [];
-    },
-    onIncrementCount(state, id) {
-      state.items.id.count++;
-    },
-    onDecrementCount(state) {
-      state.items.count--;
+      if (state.items.length > 0 && window.confirm("Are you sure to clear the cart?")) {
+        state.items = [];
+        state.totalPrice = 0;
+      }
     },
   },
 });
@@ -42,8 +62,7 @@ export const {
   addItem,
   clearItems,
   removeItem,
-  onIncrementCount,
-  onDecrementCount,
+  minusItem,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;
