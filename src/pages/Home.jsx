@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import qs from "qs";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import Categories from "../components/Categories";
 import Sort, { sorts } from "../components/Sort";
@@ -20,6 +20,7 @@ import {
 import { fetchPizzas } from "../redux/slices/pizzasSlice";
 
 const Home = () => {
+  const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isSearch = React.useRef(false);
@@ -32,8 +33,8 @@ const Home = () => {
   );
 
   React.useEffect(() => {
-    if (window.location.search) {
-      const params = qs.parse(window.location.search.substring(1));
+    if (location.search) {
+      const params = qs.parse(location.search.substring(1));
 
       const sort = sorts.find(
         (obj) => obj.sortProperty === params.sortProperty
@@ -106,23 +107,27 @@ const Home = () => {
     >
       <div className="content">
         <div className="container">
-          {items.length === 0 ? (<NothingWasFound />) : (
-            status === "error" ? (
-              <div className="empty_home">
-                <h2>An error has occurred🥺</h2>
-                <p>Failed to get pizzas</p>
+          {items.length === 0 ? (
+            <NothingWasFound />
+          ) : status === "error" ? (
+            <div className="empty_home">
+              <h2>An error has occurred🥺</h2>
+              <p>Failed to get pizzas</p>
+            </div>
+          ) : (
+            <>
+              <div className="content__top">
+                <Categories />
+                <Sort />
               </div>
-            ) : (
-              <>
-                <div className="content__top">
-                  <Categories />
-                  <Sort />
-                </div>
-                <h2 className="content__title">All pizzas</h2>
-                <div className="content__items">{renderItems()}</div>
-                { items.length === 0 ? (<></>) : <Pagination onClickCurrentPage={onClickCurrentPage} />}
-              </>
-            )
+              <h2 className="content__title">All pizzas</h2>
+              <div className="content__items">{renderItems()}</div>
+              {items.length === 0 ? (
+                <></>
+              ) : (
+                <Pagination onClickCurrentPage={onClickCurrentPage} />
+              )}
+            </>
           )}
         </div>
       </div>
