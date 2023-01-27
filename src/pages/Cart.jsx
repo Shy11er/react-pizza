@@ -17,8 +17,6 @@ const Cart = () => {
     return <EmptyCart />
   }
 
-  console.log(items)
-
   return (
     <div className="content">
       <div className="container container--cart">
