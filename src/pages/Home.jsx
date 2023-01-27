@@ -1,5 +1,4 @@
 import React from "react";
-import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import qs from "qs";
 import { useNavigate } from "react-router-dom";
@@ -17,18 +16,19 @@ import {
   setFilters,
 } from "../redux/slices/filterSlice";
 
+import { fetchPizzas } from "../redux/slices/pizzasSlice";
+
 const Home = ({ searchValue, setSearchValue }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isSearch = React.useRef(false);
   const isMounted = React.useRef(false);
 
+  const { items, status } = useSelector((state) => state.pizzas);
+
   const { categoryId, sort, currentPage } = useSelector(
     (state) => state.filter
   );
-
-  const [items, setItems] = React.useState([]);
-  const [isLoading, setIsLoading] = React.useState(true);
 
   React.useEffect(() => {
     if (window.location.search) {
@@ -59,36 +59,25 @@ const Home = ({ searchValue, setSearchValue }) => {
 
   React.useEffect(() => {
     async function fetchData() {
-      try {
-        setIsLoading(true);
+      const sortBy = sort.sortProperty.replace("-", "");
+      const order = sort.sortProperty.includes("-") ? "asc" : "desc";
+      const category = categoryId > 0 ? `&category=${categoryId}` : "";
+      const search = searchValue ? `&search=${searchValue}` : "";
 
-        const sortBy = sort.sortProperty.replace("-", "");
-        const order = sort.sortProperty.includes("-") ? "asc" : "desc";
-        const category = categoryId > 0 ? `&category=${categoryId}` : "";
-        const search = searchValue ? `&search=${searchValue}` : "";
-
-        const { data } = await axios.get(
-          `https://63c418a0a908563575316ae6.mockapi.io/items?page=${currentPage}&limit=8${category}&sortBy=${sortBy}&order=${order}${search}`
-        );
-
-        setIsLoading(false);
-        setItems(data);
-      } catch (error) {
-        console.error(error);
-        alert("Error wtih getting API");
-      }
+      dispatch(fetchPizzas({ sortBy, order, category, search, currentPage }));
     }
 
-    if (!isSearch.current) {
-      fetchData();
-    }
+    fetchData();
+
+    // if (!isSearch.current) {
+    // }
 
     isSearch.current = false;
     window.scrollTo(0, 0);
   }, [categoryId, sort.sortProperty, searchValue, currentPage]);
 
   const renderItems = () => {
-    if (isLoading) {
+    if (status === "loading") {
       return [...Array(8)].map((_, index) => {
         return <Skeleton key={index} />;
       });
@@ -118,14 +107,23 @@ const Home = ({ searchValue, setSearchValue }) => {
     >
       <div className="content">
         <div className="container">
-          <div className="content__top">
-            <Categories />
-            <Sort />
-          </div>
-          <h2 className="content__title">All pizzas</h2>
-          <div className="content__items">{renderItems()}</div>
+          {status === "error" ? (
+            <div className="empty_home">
+              <h2>An error has occurred🥺</h2>
+              <p>Failed to get pizzas</p>
+            </div>
+          ) : (
+            <>
+              <div className="content__top">
+                <Categories />
+                <Sort />
+              </div>
+              <h2 className="content__title">All pizzas</h2>
+              <div className="content__items">{renderItems()}</div>
+              <Pagination onClickCurrentPage={onClickCurrentPage} />
+            </>
+          )}
         </div>
-        <Pagination onClickCurrentPage={onClickCurrentPage} />
       </div>
     </AppContext.Provider>
   );
