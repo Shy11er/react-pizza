@@ -22,7 +22,7 @@ export default function Card({ id, title, price, imageUrl, sizes, types }) {
       title,
       price,
       imageUrl,
-      type: typeNames[activeSize],
+      type: typeNames[activeTypes],
       size: sizes[activeSize],
     };
 
