@@ -19,9 +19,10 @@ export const sorts: SortItem[] = [
   { name: "alphabet (Ascending)", sortProperty: sortPropertyEnum.TITLE_ASC },
 ];
 
-const Sort: React.FC = () => {
+const Sort: React.FC = React.memo(() => {
   const dispatch = useDispatch();
   const sort = useSelector(SelectSort);
+  console.log("object");
 
   const [open, setOpen] = React.useState(false);
 
@@ -98,6 +99,6 @@ const Sort: React.FC = () => {
       )}
     </div>
   );
-};
+})
 
 export default Sort;

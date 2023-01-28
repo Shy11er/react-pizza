@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { setCategoryId } from "../redux/filter/slice";
-import { SelectCategoryId } from "../redux/filter/selector";
+import { SelectFilter } from "../redux/filter/selector";
 
 const categories: string[] = [
   "All",
@@ -15,7 +15,7 @@ const categories: string[] = [
 
 const Categories: React.FC = () => {
   const dispatch = useDispatch();
-  const categoryId = useSelector(SelectCategoryId);
+  const { categoryId } = useSelector(SelectFilter);
 
   return (
     <div className="categories">
