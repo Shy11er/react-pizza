@@ -2,7 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
-import { addItem } from "../redux/slices/cartSlice";
+
+import { addItem } from "../redux/cart/slice";
+import { CartItem } from "../redux/cart/type";
+import { selectCartItemById } from "../redux/cart/selector";
 
 type CardProps = {
   id: string;
@@ -24,9 +27,7 @@ const Card: React.FC<CardProps> = ({
   types,
 }) => {
   const dispatch = useDispatch();
-  const cartItem = useSelector((state: any) =>
-    state.cart.items.find((obj: any) => obj.id === id)
-  );
+  const cartItem = useSelector(selectCartItemById(id));
 
   const [activeSize, setActiveSize] = React.useState(0);
   const [activeTypes, setActiveTypes] = React.useState(0);
@@ -34,13 +35,14 @@ const Card: React.FC<CardProps> = ({
   const addedItem = cartItem ? cartItem.count : 0;
 
   const onClickAdd = () => {
-    const item = {
+    const item: CartItem = {
       id,
       title,
       price,
       imageUrl,
       type: typeNames[activeTypes],
       size: sizes[activeSize],
+      count: 0,
     };
 
     dispatch(addItem(item));

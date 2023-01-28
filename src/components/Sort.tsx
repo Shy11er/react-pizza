@@ -1,45 +1,43 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { setSort } from "../redux/slices/filterSlice";
+import { setSort } from "../redux/filter/slice";
+import { SelectSort } from "../redux/filter/selector";
+import { sortPropertyEnum } from "../redux/filter/types";
 
 type SortItem = {
   name: string;
-  sortProperty: string;
-}
-
-// type PopupClick = React.MouseEvent<HTMLBodyElement> & {
-//   srcElement: Node[];
-// }
+  sortProperty: sortPropertyEnum;
+};
 
 export const sorts: SortItem[] = [
-  { name: "popularity (Descending)", sortProperty: "rating" },
-  { name: "popularity (Ascending)", sortProperty: "-rating" },
-  { name: "price (Descending)", sortProperty: "price" },
-  { name: "price (Ascending)", sortProperty: "-price" },
-  { name: "alphabet (Descending)", sortProperty: "title" },
-  { name: "alphabet (Ascending)", sortProperty: "-title" },
+  { name: "popularity (Descending)", sortProperty: sortPropertyEnum.RATING_DESC },
+  { name: "popularity (Ascending)", sortProperty: sortPropertyEnum.RATING_ASC },
+  { name: "price (Descending)", sortProperty: sortPropertyEnum.PRICE_DESC },
+  { name: "price (Ascending)", sortProperty: sortPropertyEnum.PRICE_ASC },
+  { name: "alphabet (Descending)", sortProperty: sortPropertyEnum.TITLE_DESC },
+  { name: "alphabet (Ascending)", sortProperty: sortPropertyEnum.TITLE_ASC },
 ];
 
 const Sort: React.FC = () => {
   const dispatch = useDispatch();
-  const sort = useSelector((state:any) => state.filter.sort);
+  const sort = useSelector(SelectSort);
 
   const [open, setOpen] = React.useState(false);
 
   React.useEffect(() => {
-    const handleClickOutside= (event: MouseEvent) => {
+    const handleClickOutside = (event: MouseEvent) => {
       const _event = (event.srcElement as HTMLBodyElement).className;
 
-      if (!_event.includes('SORT')) {
+      if (!_event.includes("SORT")) {
         setOpen(false);
       }
-    } 
+    };
     document.body.addEventListener("click", handleClickOutside);
 
     return () => {
       document.body.removeEventListener("click", handleClickOutside);
-    }
+    };
   }, []);
 
   return (
@@ -100,6 +98,6 @@ const Sort: React.FC = () => {
       )}
     </div>
   );
-}
+};
 
 export default Sort;

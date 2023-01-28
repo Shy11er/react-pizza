@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import qs from "qs";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -9,33 +9,41 @@ import Card from "../components/Card";
 import Skeleton from "../components/Skeleton";
 import Pagination from "../components/Pagination";
 
-import { setCurrentPage, setFilters } from "../redux/slices/filterSlice";
-
-import { fetchPizzas } from "../redux/slices/pizzasSlice";
+import { setCurrentPage, setFilters } from "../redux/filter/slice";
+import { SelectInitialState } from "../redux/filter/selector";
+import { fetchPizzas } from "../redux/pizza/slice";
+import { SelectPizzas } from "../redux/pizza/selector";
+import { useAppDispatch } from "../redux/store";
+import { SearchPizzaParams } from "../redux/pizza/types";
 
 const Home: React.FC = () => {
   const location = useLocation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const isSearch = React.useRef(false);
   const isMounted = React.useRef(false);
 
-  const { items, status } = useSelector((state: any) => state.pizzas);
+  const { items, status } = useSelector(SelectPizzas);
 
-  const { categoryId, sort, currentPage, searchValue } = useSelector(
-    (state: any) => state.filter
-  );
+  const { categoryId, sort, currentPage, searchValue } =
+    useSelector(SelectInitialState);
 
   React.useEffect(() => {
     if (location.search) {
-      const params = qs.parse(location.search.substring(1));
+      const params = qs.parse(
+        location.search.substring(1)
+      ) as unknown as SearchPizzaParams;
+      const sort = sorts.find((obj) => obj.sortProperty === params.sortBy);
 
-      const sort = sorts.find(
-        (obj) => obj.sortProperty === params.sortProperty
+      dispatch(
+        setFilters({
+          searchValue: params.search,
+          categoryId: Number(params.category),
+          currentPage: Number(params.currentPage),
+          sort: sort || sorts[0],
+        })
       );
-
-      dispatch(setFilters({ ...params, sort }));
 
       isSearch.current = true;
     }
@@ -62,8 +70,13 @@ const Home: React.FC = () => {
       const search = searchValue ? `&search=${searchValue}` : "";
 
       dispatch(
-        // @ts-ignore
-        fetchPizzas({ sortBy, order, category, search, currentPage })
+        fetchPizzas({
+          sortBy,
+          order,
+          category,
+          search,
+          currentPage: String(currentPage),
+        })
       );
     }
 
