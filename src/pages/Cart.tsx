@@ -1,12 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import CartItem from "../components/CartItem";
-import EmptyCart from "../components/EmptyCart";
+import { CartItem, EmptyCart } from "../components";
 
 import { useSelector, useDispatch } from "react-redux";
-import {  selectCart } from "../redux/cart/selector";
-import {  clearItems } from "../redux/cart/slice";
+import { selectCart } from "../redux/cart/selector";
+import { clearItems } from "../redux/cart/slice";
 
 const Cart: React.FC = () => {
   const dispatch = useDispatch();
@@ -15,7 +14,7 @@ const Cart: React.FC = () => {
   const total = items.reduce((sum: number, item: any) => sum + item.count, 0);
 
   if (items.length === 0) {
-    return <EmptyCart />
+    return <EmptyCart />;
   }
 
   return (

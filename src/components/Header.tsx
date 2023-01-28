@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-import Search from "./Search";
+import { Search } from "./";
 import logoSvg from "../assets/img/pizza-logo.svg";
 
 import { selectCart } from "../redux/cart/selector";
