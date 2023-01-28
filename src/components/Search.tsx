@@ -19,7 +19,7 @@ const Search = () => {
     []
   );
 
-  const onChangeInput = (ev: any) => {
+  const onChangeInput = (ev: React.ChangeEvent<HTMLInputElement>) => {
     setValue(ev.target.value);
     updateSearchValue(ev.target.value);
   };

@@ -8,6 +8,10 @@ type SortItem = {
   sortProperty: string;
 }
 
+// type PopupClick = React.MouseEvent<HTMLBodyElement> & {
+//   srcElement: Node[];
+// }
+
 export const sorts: SortItem[] = [
   { name: "popularity (Descending)", sortProperty: "rating" },
   { name: "popularity (Ascending)", sortProperty: "-rating" },
@@ -20,13 +24,14 @@ export const sorts: SortItem[] = [
 const Sort: React.FC = () => {
   const dispatch = useDispatch();
   const sort = useSelector((state:any) => state.filter.sort);
-  const sortRef = React.useRef<HTMLDivElement>(null);
 
   const [open, setOpen] = React.useState(false);
 
   React.useEffect(() => {
-    const handleClickOutside = (ev: any) => {
-      if (!ev.srcElement?.className?.includes('SORT')){
+    const handleClickOutside= (event: MouseEvent) => {
+      const _event = (event.srcElement as HTMLBodyElement).className;
+
+      if (!_event.includes('SORT')) {
         setOpen(false);
       }
     } 
@@ -38,7 +43,7 @@ const Sort: React.FC = () => {
   }, []);
 
   return (
-    <div ref={sortRef} className="sort SORT">
+    <div className="sort SORT">
       <div className="sort__label SORT">
         <svg
           className="SORT"

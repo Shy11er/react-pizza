@@ -69,9 +69,6 @@ const Home: React.FC = () => {
 
     fetchData();
 
-    // if (!isSearch.current) {
-    // }
-
     isSearch.current = false;
     window.scrollTo(0, 0);
   }, [categoryId, sort.sortProperty, searchValue, currentPage]);
