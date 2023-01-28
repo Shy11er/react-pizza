@@ -4,12 +4,28 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addItem } from "../redux/slices/cartSlice";
 
-const typeNames = ["thin", "traditional"];
+type CardProps = {
+  id: string;
+  title: string;
+  price: number;
+  imageUrl: string;
+  sizes: number[];
+  types: number[];
+};
 
-export default function Card({ id, title, price, imageUrl, sizes, types }) {
+const typeNames: string[] = ["thin", "traditional"];
+
+const Card: React.FC<CardProps> = ({
+  id,
+  title,
+  price,
+  imageUrl,
+  sizes,
+  types,
+}) => {
   const dispatch = useDispatch();
-  const cartItem = useSelector((state) =>
-    state.cart.items.find((obj) => obj.id === id)
+  const cartItem = useSelector((state: any) =>
+    state.cart.items.find((obj: any) => obj.id === id)
   );
 
   const [activeSize, setActiveSize] = React.useState(0);
@@ -43,7 +59,7 @@ export default function Card({ id, title, price, imageUrl, sizes, types }) {
               return (
                 <li
                   key={item}
-                  className={activeTypes === item ? "active" : null}
+                  className={activeTypes === item ? "active" : ""}
                   onClick={() => {
                     setActiveTypes(item);
                   }}
@@ -94,4 +110,6 @@ export default function Card({ id, title, price, imageUrl, sizes, types }) {
       </div>
     </>
   );
-}
+};
+
+export default Card;

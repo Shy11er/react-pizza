@@ -1,6 +1,6 @@
 import React from "react";
 
-const NotFoundBlock = () => {
+const NotFoundBlock: React.FC = () => {
   return (
     <div
       style={{

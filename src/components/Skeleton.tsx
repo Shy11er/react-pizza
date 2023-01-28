@@ -1,6 +1,6 @@
 import React from "react";
 
-const Skeleton = () => {
+const Skeleton: React.FC = () => {
   return (
     <>
       <div className="pizza-skeleton">

@@ -10,16 +10,16 @@ import searchLoop from "../assets/img/search.svg";
 const Search = () => {
   const dispatch = useDispatch();
   const [value, setValue] = React.useState("");
-  const inputRef = React.useRef();
+  const inputRef = React.useRef<HTMLInputElement>(null);
 
   const updateSearchValue = React.useCallback(
-    debounce((ev) => {
-      dispatch(setSearchValue(ev));
+    debounce((str: string) => {
+      dispatch(setSearchValue(str));
     }, 500),
     []
   );
 
-  const onChangeInput = (ev) => {
+  const onChangeInput = (ev: any) => {
     setValue(ev.target.value);
     updateSearchValue(ev.target.value);
   };
@@ -27,7 +27,7 @@ const Search = () => {
   const onClickClose = () => {
     setValue("");
     dispatch(setSearchValue(""));
-    inputRef.current.focus();
+    inputRef.current?.focus();
   };
 
   return (

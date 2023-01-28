@@ -13,7 +13,7 @@ import { setCurrentPage, setFilters } from "../redux/slices/filterSlice";
 
 import { fetchPizzas } from "../redux/slices/pizzasSlice";
 
-const Home = () => {
+const Home: React.FC = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -21,10 +21,10 @@ const Home = () => {
   const isSearch = React.useRef(false);
   const isMounted = React.useRef(false);
 
-  const { items, status } = useSelector((state) => state.pizzas);
+  const { items, status } = useSelector((state: any) => state.pizzas);
 
   const { categoryId, sort, currentPage, searchValue } = useSelector(
-    (state) => state.filter
+    (state: any) => state.filter
   );
 
   React.useEffect(() => {
@@ -61,7 +61,10 @@ const Home = () => {
       const category = categoryId > 0 ? `&category=${categoryId}` : "";
       const search = searchValue ? `&search=${searchValue}` : "";
 
-      dispatch(fetchPizzas({ sortBy, order, category, search, currentPage }));
+      dispatch(
+        // @ts-ignore
+        fetchPizzas({ sortBy, order, category, search, currentPage })
+      );
     }
 
     fetchData();
@@ -79,13 +82,13 @@ const Home = () => {
         return <Skeleton key={index} />;
       });
     } else {
-      return items.map((item, index) => {
+      return items.map((item: any, index: number) => {
         return <Card key={index} {...item} />;
       });
     }
   };
 
-  const onClickCurrentPage = (pageId) => {
+  const onClickCurrentPage = (pageId: number) => {
     dispatch(setCurrentPage(pageId));
   };
 

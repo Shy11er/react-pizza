@@ -3,12 +3,12 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { setCategoryId } from "../redux/slices/filterSlice";
 
-const categories = ["All", "Meat", "Vegetarian", "Grill", "Spicy", "Closed"];
+const categories: string[] = ["All", "Meat", "Vegetarian", "Grill", "Spicy", "Closed"];
 
 
-export default function Categories() {
+const Categories: React.FC = () => {
   const dispatch = useDispatch();
-  const categoryId  = useSelector((state) => state.filter.categoryId);
+  const categoryId  = useSelector((state: any) => state.filter.categoryId);
 
   return (
     <div className="categories">
@@ -30,3 +30,5 @@ export default function Categories() {
     </div>
   );
 }
+
+export default Categories;
